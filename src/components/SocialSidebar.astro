@@ -1,0 +1,164 @@
+---
+// SocialSidebar.astro
+// Fixed left sidebar with social links.
+// Collapsible with state persisted in localStorage.
+// Defaults to collapsed on mobile.
+---
+
+<aside
+  id="social-sidebar"
+  class="sidebar"
+  role="complementary"
+  aria-label="Social links"
+>
+  <!-- Link panel -->
+  <div class="s-media" id="social-panel">
+    <a
+      href="https://github.com/shadehawke"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub"
+      class="s-item github"
+    >
+      <span class="fa-brands fa-github" aria-hidden="true"></span>
+    </a>
+    <a
+      href="https://www.linkedin.com/in/shawn-spitaleri-76091988/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+      class="s-item linkedin"
+    >
+      <span class="fa-brands fa-linkedin" aria-hidden="true"></span>
+    </a>
+    <a
+      href="mailto:info@rlwebdesign.net"
+      aria-label="Email"
+      class="s-item email"
+    >
+      <span class="fa-solid fa-envelope" aria-hidden="true"></span>
+    </a>
+    <button
+      id="sidebar-close"
+      type="button"
+      aria-label="Collapse sidebar"
+      aria-controls="social-panel"
+      aria-expanded="true"
+      class="s-item"
+    >
+      <span class="fa-solid fa-arrow-left" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <!-- Expand trigger — visible only when collapsed -->
+  <button
+    id="sidebar-open"
+    type="button"
+    aria-label="Expand sidebar"
+    aria-controls="social-panel"
+    aria-expanded="false"
+    class="s-item s-open"
+  >
+    <span class="fa-solid fa-arrow-right" aria-hidden="true"></span>
+  </button>
+</aside>
+
+<style>
+  .sidebar {
+    position: fixed;
+    top: 250px;
+    left: 0;
+    z-index: 60;
+  }
+
+  .s-media {
+    transition: transform 180ms ease;
+  }
+
+  .s-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(48px, 7vw, 64px);
+    height: clamp(48px, 7vw, 64px);
+    font-size: calc(clamp(48px, 7vw, 64px) * 0.42);
+    color: #1e3050;
+    background: rgba(255, 255, 255, 0.02);
+    border-right: 1px solid var(--color-border);
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    cursor: pointer;
+    transition: all 200ms ease;
+    text-decoration: none;
+  }
+
+  .s-item:first-child {
+    border-radius: 0 5px 0 0;
+  }
+
+  .s-item:last-child {
+    border-radius: 0 0 5px 0;
+  }
+
+  .s-item:hover {
+    transform: translateX(2px) scale(1.05);
+  }
+
+  .s-item:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  /* Individual hover colors */
+  .github:hover   { color: #c9d1d9; box-shadow: 0 8px 22px rgba(201,209,217,0.25); }
+  .linkedin:hover { color: #0a66c2; box-shadow: 0 8px 22px rgba(10,102,194,0.35); }
+  .email:hover    { color: var(--color-accent); box-shadow: 0 8px 22px rgba(163,29,47,0.35); }
+
+  /* Expand button — hidden by default, shown when collapsed */
+  .s-open {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0 30px 30px 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease, transform 180ms ease;
+  }
+
+  /* Collapsed state */
+  .sidebar.is-collapsed .s-media {
+    transform: translateX(calc(-1 * clamp(48px, 7vw, 64px)));
+  }
+
+  .sidebar.is-collapsed .s-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  const sidebar   = document.getElementById('social-sidebar')!;
+  const btnClose  = document.getElementById('sidebar-close')!;
+  const btnOpen   = document.getElementById('sidebar-open')!;
+  const KEY       = 'rlw_sidebar_collapsed';
+
+  const setCollapsed = (collapsed: boolean) => {
+    sidebar.classList.toggle('is-collapsed', collapsed);
+    btnClose.setAttribute('aria-expanded', String(!collapsed));
+    btnOpen.setAttribute('aria-expanded',  String(!collapsed));
+    localStorage.setItem(KEY, collapsed ? '1' : '0');
+  };
+
+  // Init: default collapsed on mobile, expanded on desktop
+  const stored = localStorage.getItem(KEY);
+  if (stored !== null) {
+    setCollapsed(stored === '1');
+  } else {
+    setCollapsed(window.innerWidth < 480);
+  }
+
+  btnClose.addEventListener('click', () => setCollapsed(true));
+  btnOpen.addEventListener('click',  () => setCollapsed(false));
+</script>
