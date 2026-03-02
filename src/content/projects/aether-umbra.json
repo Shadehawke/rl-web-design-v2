@@ -1,0 +1,15 @@
+{
+  "title": "Æther & Umbra",
+  "tagline": "A dark-aesthetic digital product studio built for constraint and clarity.",
+  "problem": "A new brand needed both a visual identity and a functional storefront from scratch — one that felt considered and intentional without tipping into spiritual cliché.",
+  "solution": "Greenfield Astro build with a centralized product data system, dynamic product detail pages, and Gumroad integration. Visual language established from zero — typography, palette, layout patterns — then shipped as a fully functional shop.",
+  "result": "A complete multi-page storefront with a coherent brand identity, product grid, individual product pages, and a GitHub Actions deployment pipeline.",
+  "role": "Design + Build",
+  "focus": "Brand Identity + E-commerce",
+  "scope": "Multi-page site",
+  "image": "/images/aether-umbra-project.png",
+  "imageAlt": "Æther & Umbra digital product studio website screenshot",
+  "order": 3,
+  "featured": false,
+  "comingSoon": true
+}

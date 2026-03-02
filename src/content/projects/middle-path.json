@@ -1,0 +1,16 @@
+{
+  "title": "Tradition of the Middle Path",
+  "tagline": "A symbol-driven site built for clarity and atmosphere.",
+  "problem": "The existing presence lacked structure and visual identity — visitors couldn't immediately understand what the organization offered or how to engage further.",
+  "solution": "Built a symbol-driven, multi-page site with clear navigation, modern layout structure, and accessibility-aware markup. Designed to guide visitors from curiosity to understanding without sacrificing atmosphere.",
+  "result": "A fully responsive, WCAG-informed site that reflects the organization's identity and provides an intuitive path to deeper engagement.",
+  "role": "Design + Build",
+  "focus": "Storytelling + Accessibility",
+  "scope": "Multi-page site",
+  "image": "/images/middle-path-project.webp",
+  "imageAlt": "Tradition of the Middle Path website screenshot",
+  "url": "https://middlepathtradition.com",
+  "order": 1,
+  "featured": true,
+  "comingSoon": false
+}
