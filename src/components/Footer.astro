@@ -1,0 +1,104 @@
+---
+// Footer.astro
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="copyright">
+      &copy; <span id="footer-year"></span>
+      <a href="/">Raven's Loft Web Design / Shawn Spitaleri</a>
+      <span class="footer-sub">
+        &nbsp;&bull;&nbsp;A division of
+        <a
+          href="https://obscurameridian.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Obscura Meridian Co.
+        </a>
+      </span>
+    </p>
+
+    <p class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <span aria-hidden="true">&bull;</span>
+      <button id="cookie-settings" type="button">Cookie settings</button>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    padding: 1.5rem 1rem;
+    border-top: 1px solid var(--color-border);
+    background: linear-gradient(180deg, var(--color-bg-alt), var(--color-bg));
+    text-align: center;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .copyright {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--color-heading);
+  }
+
+  .copyright a {
+    color: var(--color-accent);
+    transition: color 200ms ease;
+  }
+
+  .copyright a:hover {
+    color: var(--color-heading);
+  }
+
+  .footer-sub {
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+  }
+
+  .footer-sub a {
+    color: var(--color-text-muted);
+    transition: color 200ms ease;
+  }
+
+  .footer-sub a:hover {
+    color: var(--color-heading);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+  }
+
+  .footer-links a,
+  .footer-links button {
+    color: var(--color-text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0;
+    transition: color 200ms ease;
+  }
+
+  .footer-links a:hover,
+  .footer-links button:hover {
+    color: var(--color-heading);
+  }
+</style>
+
+<script>
+  document.getElementById('footer-year')!.textContent = String(new Date().getFullYear());
+</script>
