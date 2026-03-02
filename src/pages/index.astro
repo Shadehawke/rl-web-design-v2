@@ -8,6 +8,241 @@ import SocialSidebar from '../components/SocialSidebar.astro';
 <Layout>
   <Nav slot="header" />
   <SocialSidebar />
-  <p>Hello from Raven's Loft</p>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <!-- Atmospheric background accents -->
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <!-- Photo -->
+      <div class="hero-photo">
+        <img
+          src="/images/Headshot.webp"
+          alt="Portrait of Shawn Spitaleri, Web Designer at Raven's Loft"
+          width="320"
+          height="400"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          class="headshot"
+        />
+      </div>
+
+      <!-- Copy -->
+      <div class="hero-content">
+        <span class="hero-eyebrow">Raven's Loft Web Design</span>
+
+        <h1 class="hero-heading">
+          Most beautiful websites are broken.
+          <em>I build ones that aren't.</em>
+        </h1>
+
+        <p class="hero-lede">
+          Dark, atmospheric sites built with rigorous accessibility and real
+          performance — because gothic design and WCAG compliance aren't opposites.
+        </p>
+
+        <p class="hero-note">
+          A division of <a href="https://obscurameridian.com" target="_blank" rel="noopener noreferrer">Obscura Meridian Co.</a>
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Request a Quote</a>
+          <a href="#work" class="btn btn-ghost">View Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Footer slot="footer" />
 </Layout>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(600px 400px at 80% 10%, rgba(163,29,47,0.04), transparent 60%),
+      radial-gradient(500px 300px at 10% 80%, rgba(163,29,47,0.03), transparent 60%);
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vh, 5rem) 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+  }
+
+  /* Photo */
+  .hero-photo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .headshot {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    object-fit: cover;
+  }
+
+  /* Copy */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-content {
+      text-align: left;
+    }
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid rgba(163,29,47,0.3);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    align-self: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-eyebrow {
+      align-self: flex-start;
+    }
+  }
+
+  .hero-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    color: var(--color-heading);
+    line-height: 1.08;
+    max-width: 20ch;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .hero-heading {
+      margin: 0;
+    }
+  }
+
+  .hero-heading em {
+    display: block;
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .hero-lede {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    max-width: 55ch;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .hero-lede {
+      margin: 0;
+    }
+  }
+
+  .hero-note {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .hero-note a {
+    color: var(--color-text-muted);
+    transition: color 200ms ease;
+  }
+
+  .hero-note a:hover {
+    color: var(--color-heading);
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-ctas {
+      justify-content: flex-start;
+    }
+  }
+
+  /* ── Buttons ────────────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    border-radius: 14px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    color: var(--color-heading);
+    border-color: var(--color-accent);
+    background: rgba(163,29,47,0.2);
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(163,29,47,0.35);
+  }
+
+  .btn-ghost {
+    color: var(--color-heading);
+    border-color: var(--color-border);
+    background: transparent;
+  }
+
+  .btn-ghost:hover,
+  .btn-ghost:focus-visible {
+    transform: translateY(-1px);
+    border-color: var(--color-heading);
+  }
+</style>
