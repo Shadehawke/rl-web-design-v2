@@ -147,6 +147,60 @@ import SocialSidebar from '../components/SocialSidebar.astro';
     </div>
   </section>
 
+  <!-- CAPABILITIES -->
+  <section id="capabilities" class="capabilities">
+    <div class="capabilities-inner">
+      <div class="capabilities-heading fade-in">
+        <h2>What I Build</h2>
+      </div>
+
+      <div class="capabilities-grid">
+        <div class="capability-card fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="fa-solid fa-pen-ruler card-icon" aria-hidden="true"></span>
+          <h3>Design + Build</h3>
+          <p>
+            Responsive layouts, modern UI, and clean implementation —
+            designed and built together, not handed off between
+            disconnected stages.
+          </p>
+        </div>
+
+        <div class="capability-card fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="fa-solid fa-gauge-high card-icon" aria-hidden="true"></span>
+          <h3>Performance</h3>
+          <p>
+            Fast load times, optimized assets, and Lighthouse-minded
+            builds focused on real-world performance — not just scores.
+          </p>
+        </div>
+
+        <div class="capability-card fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="fa-solid fa-universal-access card-icon" aria-hidden="true"></span>
+          <h3>Accessibility</h3>
+          <p>
+            Semantic HTML, keyboard navigation, readable contrast, and
+            focus states built in from the start — not bolted on after
+            launch.
+          </p>
+        </div>
+
+        <div class="capability-card fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="fa-solid fa-magnifying-glass-chart card-icon" aria-hidden="true"></span>
+          <h3>SEO Foundations</h3>
+          <p>
+            Clean structure, metadata, structured data, and indexing
+            hygiene that gives your site a solid technical baseline from
+            day one.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Footer slot="footer" />
 </Layout>
 
@@ -506,5 +560,92 @@ import SocialSidebar from '../components/SocialSidebar.astro';
 
   .values-list li .fa-solid {
     color: var(--color-accent);
+  }
+
+  /* ── Capabilities ───────────────────────────────────────────────── */
+  .capabilities {
+    background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+    border-bottom: 1px solid var(--color-border);
+    padding: clamp(3rem, 8vh, 5rem) 1.5rem;
+  }
+
+  .capabilities-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .capabilities-heading {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .capabilities-heading h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    color: var(--color-heading);
+  }
+
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .capabilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .capabilities-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .capability-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: transform 160ms ease, box-shadow 200ms ease, border-color 120ms ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .capability-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(163,29,47,0.35);
+    box-shadow: 0 14px 36px rgba(163,29,47,0.18);
+  }
+
+  .card-accent-bar {
+    height: 2px;
+    width: 48px;
+    background: rgba(163,29,47,0.7);
+    border-radius: 999px;
+  }
+
+  .card-icon {
+    color: var(--color-accent);
+    font-size: 1.25rem;
+  }
+
+  .capability-card h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    color: var(--color-heading);
+    margin: 0;
+  }
+
+  .capability-card p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.95;
   }
 </style>
