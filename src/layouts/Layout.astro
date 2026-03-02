@@ -1,0 +1,89 @@
+---
+// Layout.astro
+// The shell for every page. Handles <head>, fonts, meta, and the skip link.
+// Nav and Footer will be added as separate components and slotted in later.
+
+interface Props {
+  title?: string;
+  description?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title = "Raven's Loft Web Design | Atmospheric Sites Built for Accessibility",
+  description = "Dark, atmospheric websites built with rigorous accessibility and real performance. Gothic aesthetic. Rigorous craft. No compromises.",
+  noIndex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex,follow" />}
+
+    <!-- Prevent flash of light background before CSS loads -->
+    <style>:root { color-scheme: dark; } body { background: #0d0d10; }</style>
+
+    <!-- Global stylesheet -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+
+    <!-- Google Fonts: Cormorant Garamond (display) + Crimson Text (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome -->
+    <script
+      src="https://kit.fontawesome.com/132e59aa06.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
+  </head>
+
+  <body>
+
+    <!-- Skip link: first focusable element on the page -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Nav will slot in here -->
+    <slot name="header" />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <!-- Footer will slot in here -->
+    <slot name="footer" />
+
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-accent);
+    color: var(--color-heading);
+    padding: 0.5rem 1rem;
+    z-index: 9999;
+    transition: top 0.2s;
+    border-radius: 0 0 6px 0;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+</style>
