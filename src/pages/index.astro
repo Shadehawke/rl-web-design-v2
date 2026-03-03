@@ -296,6 +296,69 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
+  <!-- PROCESS -->
+  <section id="process" class="process">
+    <div class="process-inner">
+      <div class="process-heading fade-in">
+        <h2>How It Works</h2>
+        <p class="process-sub">
+          A straightforward build process designed for clarity,
+          momentum, and clean delivery.
+        </p>
+      </div>
+
+      <ol class="process-steps">
+        <li class="process-step fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="step-label">01</span>
+          <div class="step-body">
+            <h3>Discovery</h3>
+            <p>
+              Goals, audience, content, and constraints — defined up
+              front so nothing gets reworked later.
+            </p>
+          </div>
+        </li>
+
+        <li class="process-step fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="step-label">02</span>
+          <div class="step-body">
+            <h3>Design</h3>
+            <p>
+              Structure and visuals aligned to your brand and conversion
+              goals, reviewed before a line of code is written.
+            </p>
+          </div>
+        </li>
+
+        <li class="process-step fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="step-label">03</span>
+          <div class="step-body">
+            <h3>Build</h3>
+            <p>
+              Responsive implementation, performance-minded,
+              accessibility included — not added after.
+            </p>
+          </div>
+        </li>
+
+        <li class="process-step fade-in">
+          <div class="card-accent-bar" aria-hidden="true"></div>
+          <span class="step-label">04</span>
+          <div class="step-body">
+            <h3>Launch + Support</h3>
+            <p>
+              Go live with confidence — plus handoff documentation,
+              post-launch fixes, and optional ongoing care.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <Footer slot="footer" />
 </Layout>
 
@@ -945,5 +1008,114 @@ const projects = (await getCollection('projects'))
   .btn .fa-solid {
     margin-left: 0.5rem;
     font-size: 0.875rem;
+  }
+
+  /* ── Process ────────────────────────────────────────────────────── */
+  .process {
+    background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+    border-bottom: 1px solid var(--color-border);
+    padding: clamp(3rem, 8vh, 5rem) 1.5rem;
+  }
+
+  .process-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .process-heading {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .process-heading h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    color: var(--color-heading);
+    margin-bottom: 0.75rem;
+  }
+
+  .process-sub {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 55ch;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 640px) {
+    .process-steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-steps {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .process-step {
+    position: relative;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: transform 160ms ease, box-shadow 200ms ease, border-color 120ms ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .process-step:hover {
+    transform: translateY(-2px);
+    border-color: rgba(163,29,47,0.35);
+    box-shadow: 0 14px 36px rgba(163,29,47,0.18);
+  }
+
+  .step-label {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--color-heading);
+    opacity: 0.75;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: rgba(13,13,16,0.8);
+  }
+
+  .step-body {
+    padding-right: 2.5rem;
+  }
+
+  .step-body h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    color: var(--color-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.95;
   }
 </style>
