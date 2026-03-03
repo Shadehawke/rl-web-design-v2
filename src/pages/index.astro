@@ -465,7 +465,169 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="contact-inner">
+      <div class="contact-heading fade-in">
+        <h2>Commission a Build</h2>
+        <p class="contact-lede">
+          Tell me what you're building — or fixing. I'll reply within
+          1–2 business days with a clear recommendation and next steps.
+        </p>
+      </div>
+
+      <!-- Meta strip -->
+      <div class="contact-meta">
+        <div class="meta-item fade-in">
+          <h3>Best for</h3>
+          <p>
+            Small business sites, creator portfolios, landing pages,
+            and accessibility refactors.
+          </p>
+        </div>
+        <div class="meta-item fade-in">
+          <h3>What happens next</h3>
+          <p>
+            A quick review of your goals, then a short follow-up with
+            scope and options — no hard sell.
+          </p>
+        </div>
+        <div class="meta-item fade-in">
+          <h3>Currently available</h3>
+          <p>
+            Accepting new projects. Response within 1–2 business days.
+          </p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form
+        class="contact-form fade-in"
+        action="https://formsubmit.co/b418b3b97a7c15a4d6d41f426d0616e0"
+        method="POST"
+        novalidate
+        id="contact-form"
+      >
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="New Inquiry — Raven's Loft Web Design" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://rlwebdesign.net/thanks" />
+        <!-- Honeypot -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <!-- Project type selector -->
+        <fieldset class="field-group">
+          <legend>Project type</legend>
+          <div class="type-options" role="group">
+            <label class="type-option">
+              <input type="radio" name="project_type" value="New site" checked />
+              <span>New site</span>
+            </label>
+            <label class="type-option">
+              <input type="radio" name="project_type" value="Refactor" />
+              <span>Refactor</span>
+            </label>
+            <label class="type-option">
+              <input type="radio" name="project_type" value="Accessibility audit" />
+              <span>Accessibility audit</span>
+            </label>
+            <label class="type-option">
+              <input type="radio" name="project_type" value="Not sure yet" />
+              <span>Not sure yet</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Name -->
+        <div class="field">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+          />
+          <p class="field-error" aria-live="polite"></p>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            required
+          />
+          <p class="field-error" aria-live="polite"></p>
+        </div>
+
+        <!-- Message -->
+        <div class="field">
+          <label for="message">Tell me about your project</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            minlength="10"
+            required
+            placeholder="What do you need built or improved? Timeline, goals, and any links help."
+          ></textarea>
+          <p class="field-error" aria-live="polite"></p>
+        </div>
+
+        <button class="btn btn-primary" type="submit" id="contact-submit">
+          Start the Conversation
+        </button>
+
+        <p class="submit-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
   <Footer slot="footer" />
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    if (form) {
+      const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null;
+      const statusEl = form.querySelector('.submit-status') as HTMLElement | null;
+      const fields = form.querySelectorAll('.field');
+
+      form.addEventListener('submit', (e) => {
+        let valid = form.checkValidity();
+
+        fields.forEach(f => {
+          const input = f.querySelector('input, textarea') as HTMLInputElement | HTMLTextAreaElement | null;
+          const err = f.querySelector('.field-error') as HTMLElement | null;
+          if (!input || !err) return;
+          err.textContent = input.validity.valid ? '' : input.validationMessage;
+        });
+
+        if (!valid) {
+          e.preventDefault();
+          if (statusEl) statusEl.textContent = 'Please fix the highlighted fields.';
+          return;
+        }
+
+        if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+        if (statusEl) statusEl.textContent = 'Sending…';
+      });
+
+      form.addEventListener('input', (e) => {
+        const field = (e.target as HTMLElement).closest('.field');
+        if (!field) return;
+        const input = field.querySelector('input, textarea') as HTMLInputElement | null;
+        const err = field.querySelector('.field-error') as HTMLElement | null;
+        if (input && err) err.textContent = '';
+        if (statusEl) statusEl.textContent = '';
+      });
+    }
+  </script>
 </Layout>
 
 <style>
@@ -1359,5 +1521,213 @@ const projects = (await getCollection('projects'))
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  /* ── Contact ────────────────────────────────────────────────────── */
+  .contact {
+    background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+    border-bottom: 1px solid var(--color-border);
+    padding: clamp(3rem, 8vh, 5rem) 1.5rem;
+    text-align: center;
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .contact-heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-heading h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    color: var(--color-heading);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-lede {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 55ch;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Meta strip */
+  .contact-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+    text-align: left;
+  }
+
+  @media (min-width: 768px) {
+    .contact-meta {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .meta-item {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+  }
+
+  .meta-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-item p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Form */
+  .contact-form {
+    max-width: 680px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    padding: 2rem 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    text-align: left;
+  }
+
+  /* Project type selector */
+  .field-group {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .field-group legend {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-heading);
+    margin-bottom: 0.75rem;
+  }
+
+  .type-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .type-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .type-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .type-option span {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+    user-select: none;
+  }
+
+  .type-option input[type="radio"]:checked + span {
+    border-color: var(--color-accent);
+    background: rgba(163,29,47,0.15);
+    color: var(--color-heading);
+  }
+
+  .type-option:hover span {
+    border-color: rgba(163,29,47,0.5);
+  }
+
+  .type-option input[type="radio"]:focus-visible + span {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+
+  /* Fields */
+  .field {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .field label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-heading);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: rgba(255,255,255,0.02);
+    color: var(--color-heading);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.5;
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-color: var(--color-accent);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .field-error {
+    min-height: 1em;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  .submit-status {
+    min-height: 1.25em;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-heading);
+    margin: 0;
+  }
+
+  #contact-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 </style>
