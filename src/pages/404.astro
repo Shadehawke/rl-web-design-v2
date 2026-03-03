@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="404 — Page Not Found | Raven's Loft Web Design"
+  noIndex={true}
+>
+  <Nav slot="header" />
+
+  <section class="not-found">
+    <div class="not-found-inner">
+      <span class="not-found-code">404</span>
+      <h1>This page doesn't exist.</h1>
+      <p>
+        It may have moved, been removed, or the URL might be wrong.
+        Either way, let's get you back on track.
+      </p>
+      <div class="not-found-ctas">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+        <a href="/#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .not-found {
+    min-height: calc(100vh - 200px);
+    display: grid;
+    place-items: center;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  }
+
+  .not-found-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 560px;
+  }
+
+  .not-found-code {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+    opacity: 0.85;
+  }
+
+  .not-found-inner h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    color: var(--color-heading);
+  }
+
+  .not-found-inner p {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .not-found-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    border-radius: 14px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 1px solid var(--color-accent);
+    color: var(--color-heading);
+    background: rgba(163,29,47,0.2);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(163,29,47,0.35);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    border-radius: 14px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-heading);
+    background: transparent;
+    transition: transform 150ms ease, border-color 150ms ease;
+  }
+
+  .btn-ghost:hover,
+  .btn-ghost:focus-visible {
+    transform: translateY(-1px);
+    border-color: var(--color-heading);
+  }
+</style>

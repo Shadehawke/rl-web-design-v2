@@ -4,6 +4,7 @@
 // Nav and Footer will be added as separate components and slotted in later.
 
 import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
 
 interface Props {
   title?: string;
@@ -55,6 +56,65 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       crossorigin="anonymous"
       defer
     ></script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#a31d2f" />
+
+    <!-- Schema: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Raven's Loft Web Design",
+        "url": "https://rlwebdesign.net/",
+        "logo": "https://rlwebdesign.net/images/rl-logo-with-text.png",
+        "founder": {
+          "@type": "Person",
+          "name": "Shawn Spitaleri",
+          "url": "https://www.linkedin.com/in/shawn-spitaleri-76091988/"
+        },
+        "isPartOf": {
+          "@type": "Organization",
+          "name": "Obscura Meridian Co.",
+          "url": "https://obscurameridian.com"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "info@rlwebdesign.net",
+          "areaServed": "US",
+          "availableLanguage": "en"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/shawn-spitaleri-76091988/",
+          "https://github.com/shadehawke"
+        ]
+      }
+    </script>
+
+    <!-- Schema: WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Raven's Loft Web Design",
+        "url": "https://rlwebdesign.net/",
+        "description": "Dark, atmospheric websites built with rigorous accessibility and real performance.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Raven's Loft Web Design"
+        }
+      }
+    </script>
+
+    <!-- GA4 — loaded only after cookie consent is granted -->
+    <script is:inline>
+      window.__GA_ID = 'G-7VD0ZGRKR0';
+    </script>
   </head>
 
   <body>
@@ -92,6 +152,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
       });
     </script>
+
+    <CookieConsent />
 
   </body>
 </html>

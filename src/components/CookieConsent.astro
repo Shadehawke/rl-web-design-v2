@@ -1,0 +1,193 @@
+---
+// CookieConsent.astro
+// Banner appears on first visit.
+// Accepts or declines analytics cookies.
+// GA4 is only loaded if accepted.
+// Choice is persisted in localStorage under 'rlw_cookie_consent'.
+---
+
+<div
+  id="cookie-banner"
+  class="cookie-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-label="Cookie consent"
+  aria-describedby="cookie-desc"
+  hidden
+>
+  <p id="cookie-desc" class="cookie-text">
+    We use analytics cookies to understand how visitors use this site.
+    You can accept or decline — essential cookies are always active.
+    <a href="/privacy">Privacy Policy</a>
+  </p>
+  <div class="cookie-actions">
+    <button id="cookie-accept" type="button" class="btn-cookie btn-cookie--accept">
+      Accept
+    </button>
+    <button id="cookie-decline" type="button" class="btn-cookie btn-cookie--decline">
+      Decline
+    </button>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9000;
+    max-width: 420px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-bg-alt);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cookie-banner {
+      animation: slide-up 250ms ease forwards;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .cookie-text a {
+    color: var(--color-accent);
+    transition: color 200ms ease;
+  }
+
+  .cookie-text a:hover {
+    color: var(--color-heading);
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .btn-cookie {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+    border: 1px solid transparent;
+  }
+
+  .btn-cookie:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .btn-cookie--accept {
+    background: rgba(163,29,47,0.2);
+    border-color: var(--color-accent);
+    color: var(--color-heading);
+  }
+
+  .btn-cookie--accept:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(163,29,47,0.35);
+  }
+
+  .btn-cookie--decline {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text);
+  }
+
+  .btn-cookie--decline:hover {
+    border-color: var(--color-heading);
+    color: var(--color-heading);
+  }
+
+  @media (max-width: 480px) {
+    .cookie-banner {
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const KEY = 'rlw_cookie_consent';
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
+
+  // Load GA4 dynamically after consent
+  const loadGA = () => {
+    const id = (window as any).__GA_ID;
+    if (!id) return;
+    const script = document.createElement('script');
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    script.async = true;
+    document.head.appendChild(script);
+    script.onload = () => {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      function gtag(...args: any[]) { (window as any).dataLayer.push(args); }
+      gtag('js', new Date());
+      gtag('config', id, { anonymize_ip: true });
+    };
+  };
+
+  // Check stored preference
+  const stored = localStorage.getItem(KEY);
+
+  if (stored === 'accepted') {
+    loadGA();
+  } else if (stored === null && banner) {
+    // First visit — show banner
+    banner.removeAttribute('hidden');
+  }
+
+  // Accept
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem(KEY, 'accepted');
+    loadGA();
+    banner?.setAttribute('hidden', '');
+  });
+
+  // Decline
+  declineBtn?.addEventListener('click', () => {
+    localStorage.setItem(KEY, 'declined');
+    banner?.setAttribute('hidden', '');
+  });
+
+  // Cookie settings button in footer
+  const settingsBtn = document.getElementById('cookie-settings');
+  settingsBtn?.addEventListener('click', () => {
+    localStorage.removeItem(KEY);
+    banner?.removeAttribute('hidden');
+  });
+</script>
